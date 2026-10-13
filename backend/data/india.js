@@ -1,0 +1,53 @@
+// All Indian states & UTs. Telangana has its complete district list; other states carry major districts.
+// For the full national district + pincode list run:  npm run seed:geo -- data/pincodes.csv
+// (India Post "All India Pincode Directory" CSV: columns pincode, officename, district, statename)
+module.exports = {
+  'Telangana': ['Adilabad', 'Bhadradri Kothagudem', 'Hanumakonda', 'Hyderabad', 'Jagtial', 'Jangaon', 'Jayashankar Bhupalpally', 'Jogulamba Gadwal', 'Kamareddy', 'Karimnagar', 'Khammam', 'Kumuram Bheem Asifabad', 'Mahabubabad', 'Mahabubnagar', 'Mancherial', 'Medak', 'Medchal-Malkajgiri', 'Mulugu', 'Nagarkurnool', 'Nalgonda', 'Narayanpet', 'Nirmal', 'Nizamabad', 'Peddapalli', 'Rajanna Sircilla', 'Rangareddy', 'Sangareddy', 'Siddipet', 'Suryapet', 'Vikarabad', 'Wanaparthy', 'Warangal', 'Yadadri Bhuvanagiri'],
+  'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada (NTR)', 'Guntur', 'Krishna', 'Kurnool', 'Anantapur', 'Chittoor', 'Nellore', 'East Godavari', 'West Godavari', 'Kadapa', 'Prakasam'],
+  'Arunachal Pradesh': ['Itanagar (Papum Pare)', 'Tawang', 'West Kameng', 'Lower Subansiri'],
+  'Assam': ['Kamrup Metropolitan', 'Dibrugarh', 'Jorhat', 'Nagaon', 'Cachar', 'Sonitpur'],
+  'Bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Darbhanga', 'Purnia'],
+  'Chhattisgarh': ['Raipur', 'Bilaspur', 'Durg', 'Korba', 'Bastar'],
+  'Goa': ['North Goa', 'South Goa'],
+  'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar', 'Bhavnagar'],
+  'Haryana': ['Gurugram', 'Faridabad', 'Panipat', 'Ambala', 'Hisar', 'Karnal'],
+  'Himachal Pradesh': ['Shimla', 'Kangra', 'Mandi', 'Solan', 'Kullu'],
+  'Jharkhand': ['Ranchi', 'Jamshedpur (East Singhbhum)', 'Dhanbad', 'Bokaro', 'Hazaribagh'],
+  'Karnataka': ['Bengaluru Urban', 'Mysuru', 'Mangaluru (Dakshina Kannada)', 'Hubballi-Dharwad', 'Belagavi', 'Kalaburagi'],
+  'Kerala': ['Thiruvananthapuram', 'Ernakulam', 'Kozhikode', 'Thrissur', 'Kollam', 'Kannur'],
+  'Madhya Pradesh': ['Bhopal', 'Indore', 'Gwalior', 'Jabalpur', 'Ujjain'],
+  'Maharashtra': ['Mumbai City', 'Mumbai Suburban', 'Pune', 'Nagpur', 'Nashik', 'Thane', 'Aurangabad'],
+  'Manipur': ['Imphal West', 'Imphal East', 'Thoubal'],
+  'Meghalaya': ['East Khasi Hills', 'West Garo Hills', 'Ri Bhoi'],
+  'Mizoram': ['Aizawl', 'Lunglei', 'Champhai'],
+  'Nagaland': ['Kohima', 'Dimapur', 'Mokokchung'],
+  'Odisha': ['Khordha (Bhubaneswar)', 'Cuttack', 'Puri', 'Ganjam', 'Sambalpur'],
+  'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Mohali (SAS Nagar)'],
+  'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Ajmer', 'Bikaner'],
+  'Sikkim': ['Gangtok (East Sikkim)', 'West Sikkim', 'North Sikkim', 'South Sikkim'],
+  'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli'],
+  'Tripura': ['West Tripura (Agartala)', 'South Tripura', 'North Tripura'],
+  'Uttar Pradesh': ['Lucknow', 'Kanpur Nagar', 'Varanasi', 'Agra', 'Prayagraj', 'Ghaziabad', 'Gautam Buddha Nagar'],
+  'Uttarakhand': ['Dehradun', 'Haridwar', 'Nainital', 'Udham Singh Nagar'],
+  'West Bengal': ['Kolkata', 'Howrah', 'North 24 Parganas', 'South 24 Parganas', 'Darjeeling', 'Hooghly'],
+  '@UT': {
+    'Andaman and Nicobar Islands': ['South Andaman', 'North and Middle Andaman', 'Nicobar'],
+    'Chandigarh': ['Chandigarh'],
+    'Dadra and Nagar Haveli and Daman and Diu': ['Dadra and Nagar Haveli', 'Daman', 'Diu'],
+    'Delhi': ['Central Delhi', 'New Delhi', 'North Delhi', 'South Delhi', 'East Delhi', 'West Delhi', 'North West Delhi', 'South West Delhi', 'Shahdara', 'South East Delhi', 'North East Delhi'],
+    'Jammu and Kashmir': ['Srinagar', 'Jammu', 'Anantnag', 'Baramulla'],
+    'Ladakh': ['Leh', 'Kargil'],
+    'Lakshadweep': ['Lakshadweep'],
+    'Puducherry': ['Puducherry', 'Karaikal', 'Mahe', 'Yanam'],
+  },
+  // Sample Telangana pincodes (extend via the CSV importer)
+  '@PINS': {
+    'Telangana': {
+      'Hyderabad': [['500001', 'Abids'], ['500003', 'Secunderabad'], ['500004', 'Nampally'], ['500016', 'Begumpet'], ['500018', 'Erragadda'], ['500020', 'Himayatnagar'], ['500028', 'Banjara Hills'], ['500034', 'Jubilee Hills'], ['500044', 'Musheerabad'], ['500082', 'Punjagutta']],
+      'Rangareddy': [['500032', 'Gachibowli'], ['500081', 'Madhapur'], ['500084', 'Kondapur'], ['501218', 'Vikarabad Rd']],
+      'Medchal-Malkajgiri': [['500055', 'Sainikpuri'], ['500062', 'Uppal'], ['500092', 'Kukatpally']],
+      'Warangal': [['506002', 'Warangal'], ['506001', 'Hanamkonda']],
+      'Karimnagar': [['505001', 'Karimnagar']], 'Nizamabad': [['503001', 'Nizamabad']], 'Khammam': [['507001', 'Khammam']],
+    },
+  },
+};
