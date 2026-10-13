@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import PlayableCrossingGame from '../components/PlayableCrossingGame';
+import RuleGame from '../components/RuleGame';
 import TrafficScene from '../components/TrafficScene';
 
 function CountUp({ to, suffix = '', visible = true }) {
@@ -308,6 +310,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <RuleGame />
+      <PlayableCrossingGame />
 
       <section className="roles-panel reveal">
         <div className="section-heading narrow">
