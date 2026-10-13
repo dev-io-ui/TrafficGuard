@@ -165,3 +165,583 @@ select:disabled,input:disabled{background:#F1F5F9;color:#94A3B8;cursor:not-allow
 @media(max-width:560px){.searchrow{flex-direction:column}.vehicle-head{flex-direction:column;align-items:flex-start}.right{text-align:left}.header-right .nav-link{display:none}.header-right .btn.ghost{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media print{.sidebar,.header,.scrim,.toasts,.noprint{display:none!important}.shell.has-side{display:block}body{background:#fff}.card{box-shadow:none}}
+
+
+
+
+/* =========================================
+   ROADWATCH — IMMERSIVE MOTION UPGRADE
+   Append to the END of the existing CSS
+========================================= */
+
+:root {
+  --rw-glow: rgba(37, 99, 235, 0.24);
+  --rw-cyan: #38BDF8;
+  --rw-glass: rgba(15, 29, 46, 0.78);
+}
+
+/* Smooth, premium interactions */
+.btn,
+.card,
+.step,
+.vcard,
+.ticket-wrap,
+.stats > div {
+  transform-style: preserve-3d;
+  transition:
+    transform 300ms cubic-bezier(.2, .7, .2, 1),
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+/* Richer hero background */
+.hero {
+  isolation: isolate;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 78% 38%,
+      rgba(37, 99, 235, 0.17),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(56, 189, 248, 0.10),
+      transparent 45%
+    );
+  animation: rwAmbient 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: 0;
+  opacity: .23;
+  background-image:
+    linear-gradient(rgba(37,99,235,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,.10) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+  animation: rwGrid 28s linear infinite;
+}
+
+@keyframes rwAmbient {
+  from { transform: translate3d(-1%, 0, 0) scale(1); }
+  to   { transform: translate3d(1%, -1%, 0) scale(1.06); }
+}
+
+@keyframes rwGrid {
+  from { background-position: 0 0; }
+  to   { background-position: 42px 42px; }
+}
+
+/* Animated road */
+.road {
+  height: 4px;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--primary) 0 32px,
+    transparent 32px 62px
+  );
+  background-size: 124px 100%;
+  animation: rwRoadFlow 2.4s linear infinite;
+  box-shadow: 0 0 14px var(--rw-glow);
+}
+
+@keyframes rwRoadFlow {
+  to { background-position: -124px 0; }
+}
+
+/* 3D ticket interaction */
+.ticket-wrap {
+  perspective: 1200px;
+}
+
+.ticket {
+  transform: rotateY(-5deg) rotateX(2deg);
+  transition: transform 500ms cubic-bezier(.2,.7,.2,1);
+}
+
+.ticket-wrap:hover .ticket {
+  transform: rotateY(0deg) rotateX(0deg) translateY(-5px);
+}
+
+.face {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.face::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255,255,255,.10) 48%,
+    transparent 56%
+  );
+  transform: translateX(-65%);
+  transition: transform 800ms ease;
+}
+
+.ticket-wrap:hover .face::after {
+  transform: translateX(65%);
+}
+
+/* Floating animation for hero scene elements */
+.hero-scene .float {
+  animation: rwFloat 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-scene .float:nth-child(2) {
+  animation-delay: -1.5s;
+}
+
+.hero-scene .float:nth-child(3) {
+  animation-delay: -3s;
+}
+
+@keyframes rwFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* Card depth and light */
+.card,
+.step,
+.vcard,
+.stats > div {
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover,
+.step:hover,
+.vcard:hover,
+.stats > div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, .10);
+  border-color: rgba(37, 99, 235, .28);
+}
+
+/* Subtle animated blue light */
+.card::before,
+.step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--rw-cyan),
+    transparent
+  );
+  transition: left 650ms ease;
+}
+
+.card:hover::before,
+.step:hover::before {
+  left: 120%;
+}
+
+/* Buttons feel responsive */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:not(:disabled):active {
+  transform: scale(.97);
+}
+
+.btn:not(:disabled):hover {
+  box-shadow: 0 8px 26px rgba(37, 99, 235, .30);
+}
+
+/* Traffic status indicator pulse */
+.badge.submitted::before,
+.badge.pending::before,
+.badge.paid::before,
+.badge.unpaid::before {
+  animation: rwStatusPulse 2s ease-in-out infinite;
+}
+
+@keyframes rwStatusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50%      { box-shadow: 0 0 0 4px transparent; }
+}
+
+/* Smooth content entrance */
+main {
+  animation: rwPageEnter 450ms cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes rwPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keep mobile performance and accessibility */
+@media (max-width: 860px) {
+  .hero::after {
+    opacity: .12;
+  }
+
+  .ticket {
+    transform: none;
+  }
+
+  .card:hover,
+  .step:hover,
+  .vcard:hover,
+  .stats > div:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .hero::after,
+  .road,
+  .hero-scene .float,
+  .badge::before {
+    animation: none !important;
+  }
+
+  .ticket,
+  .card,
+  .step,
+  .vcard,
+  .stats > div {
+    transition: none !important;
+    transform: none;
+  }
+}
+
+
+
+/* ========================================
+   ROADWATCH HOME — CINEMATIC 3D EXPERIENCE
+======================================== */
+
+.rw-home-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: min(790px, calc(100svh - 64px));
+  padding: clamp(24px, 4vw, 56px) 0 4.5rem;
+  overflow: hidden;
+  color: #f8fafc;
+  background: #07101e;
+  border-radius: 18px;
+}
+
+/* Actual WebGL scene */
+.rw-home-hero > .traffic-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.traffic-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cinematic contrast behind readable text */
+.rw-home-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 16, 30, .98) 0%,
+      rgba(7, 16, 30, .93) 32%,
+      rgba(7, 16, 30, .65) 52%,
+      rgba(7, 16, 30, .10) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #07101e 0%,
+      transparent 18%,
+      transparent 90%
+    );
+}
+
+/* Ambient light */
+.rw-home-hero::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 18%;
+  z-index: -1;
+  width: 40%;
+  height: 65%;
+  pointer-events: none;
+  background: #2563eb;
+  opacity: .07;
+  filter: blur(100px);
+  animation: rwHomeAmbient 8s ease-in-out infinite alternate;
+}
+
+.rw-home-copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  padding: 20px 0 20px clamp(18px, 3vw, 42px);
+  animation: rwHomeEnter .9s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.rw-home-copy h1 {
+  margin: 22px 0 18px;
+  color: #f8fafc;
+  font-size: clamp(2.5rem, 4.4vw, 4.7rem);
+  font-weight: 800;
+  letter-spacing: -.065em;
+  line-height: 1.02;
+}
+
+.rw-home-copy h1 .amber {
+  color: transparent;
+  background: linear-gradient(100deg, #bfdbfe, #38bdf8, #60a5fa);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.rw-home-copy .lead {
+  max-width: 560px;
+  color: #b8c7dc;
+  font-size: clamp(.95rem, 1.2vw, 1.08rem);
+  line-height: 1.85;
+}
+
+.rw-home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px;
+  color: #bfdbfe;
+  background: rgba(37, 99, 235, .12);
+  border: 1px solid rgba(96, 165, 250, .3);
+  border-radius: 99px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  backdrop-filter: blur(12px);
+}
+
+.rw-home-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8;
+  animation: rwHomePulse 1.8s ease-in-out infinite;
+}
+
+/* Make the existing search card fit the cinematic theme */
+.rw-home-copy .searchcard {
+  max-width: 600px;
+  padding: 15px;
+  background: rgba(13, 26, 44, .88);
+  border: 1px solid rgba(148, 163, 184, .25);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, .22);
+  backdrop-filter: blur(18px);
+}
+
+.rw-home-copy .searchcard .tabs {
+  background: rgba(255, 255, 255, .07);
+}
+
+.rw-home-copy .searchcard .tabs button {
+  color: #a9bad0;
+}
+
+.rw-home-copy .searchcard .tabs button.active {
+  color: #fff;
+  background: #2563eb;
+}
+
+.rw-home-copy .searchcard .muted {
+  color: #a9bad0;
+}
+
+.rw-home-actions {
+  flex-wrap: wrap;
+}
+
+.rw-home-actions .btn {
+  min-height: 46px;
+}
+
+.rw-home-actions .btn.ghost {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(148, 163, 184, .3);
+}
+
+.rw-home-actions .btn.ghost:hover {
+  color: #fff;
+  background: rgba(37, 99, 235, .2);
+  border-color: #60a5fa;
+}
+
+.rw-home-scene-label {
+  position: absolute;
+  right: 20px;
+  bottom: 25px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  color: #bfdbfe;
+  border: 1px solid rgba(96, 165, 250, .2);
+  border-radius: 8px;
+  background: rgba(7, 16, 30, .7);
+  backdrop-filter: blur(12px);
+  font: 10px/1.5 monospace;
+  letter-spacing: .1em;
+}
+
+@keyframes rwHomePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.8); }
+}
+
+@keyframes rwHomeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes rwHomeAmbient {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(25px, 20px) scale(1.2); }
+}
+
+/* Keep the 3D scene visible on tablets */
+@media (max-width: 860px) {
+  .rw-home-hero {
+    grid-template-columns: 1fr;
+    min-height: 780px;
+    padding: 32px 0 70px;
+  }
+
+  .rw-home-copy {
+    max-width: 720px;
+    padding: 20px 24px;
+  }
+
+  .rw-home-copy h1 {
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+  }
+
+  .rw-home-hero::before {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(7, 16, 30, .96),
+        rgba(7, 16, 30, .76)
+      ),
+      linear-gradient(0deg, #07101e, transparent 55%);
+  }
+}
+
+@media (max-width: 560px) {
+  .rw-home-hero {
+    min-height: 820px;
+    border-radius: 12px;
+  }
+
+  .rw-home-copy {
+    padding: 20px 16px;
+  }
+
+  .rw-home-copy h1 {
+    font-size: clamp(2.45rem, 11vw, 3.5rem);
+  }
+
+  .rw-home-eyebrow {
+    font-size: .57rem;
+    letter-spacing: .08em;
+  }
+
+  .rw-home-copy .searchcard {
+    padding: 12px;
+  }
+
+  .rw-home-copy .searchcard .tabs {
+    width: 100%;
+  }
+
+  .rw-home-copy .searchcard .tabs button {
+    flex: 1;
+    padding: 9px 6px;
+    font-size: .76rem;
+  }
+
+  .rw-home-scene-label {
+    right: 12px;
+    bottom: 14px;
+    font-size: 8px;
+  }
+
+  .rw-home-actions {
+    gap: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rw-home-hero::after,
+  .rw-home-dot {
+    animation: none !important;
+  }
+
+  .rw-home-copy {
+    animation: none !important;
+  }
+}

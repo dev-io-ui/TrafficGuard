@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import TrafficScene from "../components/TrafficScene";
 
 function CountUp({ to, suffix = '' }) {
   const [n, setN] = useState(0);
@@ -71,7 +72,7 @@ export default function Home() {
   const [tab, setTab] = useState('Citizen');
   return (
     <main>
-      <section className="hero">
+      {/* <section className="hero">
         <div>
           <h1>See it. Report it.<br /><span className="amber">On the record.</span></h1>
           <p className="lead">Citizens report violations with photo and video evidence, officers validate them region by region, and owners pay fines online with instant receipts.</p>
@@ -80,7 +81,48 @@ export default function Home() {
         </div>
         <Ticket />
         <div className="road" aria-hidden="true" />
-      </section>
+      </section> */}
+      
+<section className="hero rw-home-hero">
+  <TrafficScene />
+
+  <div className="rw-home-copy">
+    <div className="rw-home-eyebrow">
+      <span className="rw-home-dot" />
+      INTELLIGENT TRAFFIC MANAGEMENT
+    </div>
+
+    <h1>
+      See it. Report it.
+      <br />
+      <span className="amber">On the record.</span>
+    </h1>
+
+    <p className="lead">
+      Citizens report violations with photo and video evidence,
+      officers validate them region by region, and owners pay
+      fines online with instant receipts.
+    </p>
+
+    <SearchBox />
+
+    <div className="row rw-home-actions">
+      <Link className="btn" to="/register">
+        Report a violation <span>↗</span>
+      </Link>
+      <Link className="btn ghost" to="/login">
+        Login
+      </Link>
+    </div>
+  </div>
+
+  <div className="rw-home-scene-label">
+    <span className="rw-home-dot" />
+    SMART CITY · TRAFFIC NETWORK
+  </div>
+
+  <div className="road" aria-hidden="true" />
+</section>
       <section className="stats">
         <div><b><CountUp to={10} /></b><span>Violation types</span></div>
         <div><b><CountUp to={3} /></b><span>User roles</span></div>
