@@ -90,9 +90,9 @@ function City() {
       <mesh>
         <boxGeometry args={[b.w, b.h, b.w * 0.8]} />
         <meshStandardMaterial
-          color={i % 3 ? "#0e2038" : "#142d4a"}
-          metalness={0.65}
-          roughness={0.35}
+          color={i % 3 ? "#dfeaf6" : "#c3d9f7"}
+          metalness={0.4}
+          roughness={0.75}
         />
       </mesh>
 
@@ -103,7 +103,7 @@ function City() {
         >
           <boxGeometry args={[b.w * 0.45, 0.045, 0.015]} />
           <meshBasicMaterial
-            color={i % 4 === 0 ? "#38bdf8" : "#2563eb"}
+            color={i % 4 === 0 ? "#38bdf8" : "#1d4ed8"}
             transparent
             opacity={0.75}
           />
@@ -128,7 +128,7 @@ function Road() {
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, -18]}>
         <planeGeometry args={[13, 100]} />
-        <meshStandardMaterial color="#101a29" roughness={0.3} metalness={0.4} />
+        <meshStandardMaterial color="#dfeaf8" roughness={0.75} metalness={0.25} />
       </mesh>
 
       {[-6.2, 6.2].map((x) => (
@@ -187,7 +187,7 @@ function Particles() {
         color="#60a5fa"
         size={0.055}
         transparent
-        opacity={0.65}
+        opacity={0.7}
       />
     </points>
   );
@@ -199,9 +199,11 @@ function Scene() {
   useFrame((state, delta) => {
     if (!group.current) return;
 
+    const scrollProgress = window.scrollY / Math.max(window.innerHeight, 1);
+    const scrollSway = Math.sin(scrollProgress * 0.45) * 0.025;
     group.current.rotation.y = THREE.MathUtils.damp(
       group.current.rotation.y,
-      state.pointer.x * 0.035,
+      state.pointer.x * 0.035 + scrollSway,
       2,
       delta
     );
@@ -212,18 +214,24 @@ function Scene() {
       2,
       delta
     );
+    group.current.position.y = THREE.MathUtils.damp(
+      group.current.position.y,
+      Math.sin(scrollProgress * 0.5) * 0.12,
+      2,
+      delta
+    );
   });
 
   return (
     <>
-      <color attach="background" args={["#07101e"]} />
-      <fog attach="fog" args={["#07101e", 20, 58]} />
-      <ambientLight intensity={1.1} />
-      <hemisphereLight args={["#93c5fd", "#08101c", 1.3]} />
-      <directionalLight position={[5, 10, 6]} intensity={2.5} />
+      <color attach="background" args={["#f7fbff"]} />
+      <fog attach="fog" args={["#f7fbff", 20, 58]} />
+      <ambientLight intensity={1.2} />
+      <hemisphereLight args={["#dbeafe", "#cfe8ff", 1.5]} />
+      <directionalLight position={[5, 10, 6]} intensity={2.2} color="#ffffff" />
 
-      <pointLight position={[-5, 4, 0]} intensity={35} color="#2563eb" distance={25} />
-      <pointLight position={[5, 3, -10]} intensity={25} color="#38bdf8" distance={28} />
+      <pointLight position={[-5, 4, 0]} intensity={18} color="#60a5fa" distance={25} />
+      <pointLight position={[5, 3, -10]} intensity={18} color="#06b6d4" distance={28} />
 
       <group ref={group}>
         <City />
