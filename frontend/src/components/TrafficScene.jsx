@@ -11,10 +11,12 @@ function Car({ position, color = "#2563eb", scale = 1, speed = 1 }) {
     if (!ref.current) return;
 
     ref.current.position.y =
-      position[1] + Math.sin(state.clock.elapsedTime * 2 * speed) * 0.025;
+      position[1] + Math.sin(state.clock.elapsedTime * 2.4 + position[2]) * 0.025;
+    ref.current.position.z += delta * speed;
+    if (ref.current.position.z > 25) ref.current.position.z = -65;
 
     wheels.current.forEach((wheel) => {
-      if (wheel) wheel.rotation.x += delta * 2.5 * speed;
+      if (wheel) wheel.rotation.x += delta * 8;
     });
   });
 
@@ -119,8 +121,8 @@ function Road() {
   useFrame((_, delta) => {
     dashes.current.forEach((dash) => {
       if (!dash) return;
-      dash.position.z += delta * 11;
-      if (dash.position.z > 7) dash.position.z = -49;
+      dash.position.z += delta * 10;
+      if (dash.position.z > 31) dash.position.z = -65;
     });
   });
 
@@ -128,7 +130,7 @@ function Road() {
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, -18]}>
         <planeGeometry args={[13, 100]} />
-        <meshStandardMaterial color="#dfeaf8" roughness={0.75} metalness={0.25} />
+        <meshStandardMaterial color="#94a3b8" roughness={0.85} metalness={0.08} />
       </mesh>
 
       {[-6.2, 6.2].map((x) => (
@@ -137,21 +139,21 @@ function Road() {
           position={[x, 0.005, -18]}
           rotation={[-Math.PI / 2, 0, 0]}
         >
-          <planeGeometry args={[0.08, 100]} />
-          <meshBasicMaterial color="#38bdf8" />
+          <planeGeometry args={[0.14, 100]} />
+          <meshBasicMaterial color="#0891b2" />
         </mesh>
       ))}
 
       {[-2, 2].flatMap((x, lane) =>
-        Array.from({ length: 15 }, (_, i) => (
+        Array.from({ length: 24 }, (_, i) => (
           <mesh
             key={`${lane}-${i}`}
-            ref={(el) => (dashes.current[lane * 15 + i] = el)}
-            position={[x, 0.01, -49 + i * 4]}
+            ref={(el) => (dashes.current[lane * 24 + i] = el)}
+            position={[x, 0.01, -65 + i * 4]}
             rotation={[-Math.PI / 2, 0, 0]}
           >
-            <planeGeometry args={[0.07, 1.7]} />
-            <meshBasicMaterial color="#bfdbfe" />
+            <planeGeometry args={[0.15, 2.2]} />
+            <meshBasicMaterial color="#ffffff" />
           </mesh>
         ))
       )}
@@ -236,9 +238,9 @@ function Scene() {
       <group ref={group}>
         <City />
         <Road />
-        <Car position={[1.2, 0.03, 2]} scale={0.85} speed={1} />
-        <Car position={[-2.2, 0.02, -8]} scale={0.46} color="#dbeafe" speed={1.5} />
-        <Car position={[2.5, 0.02, -17]} scale={0.42} color="#dc2626" speed={0.8} />
+        <Car position={[1.2, 0.03, 2]} scale={0.85} speed={8} />
+        <Car position={[-2.2, 0.02, -8]} scale={0.46} color="#dbeafe" speed={6.5} />
+        <Car position={[2.5, 0.02, -17]} scale={0.42} color="#dc2626" speed={9} />
         <Particles />
       </group>
     </>
